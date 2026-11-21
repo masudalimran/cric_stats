@@ -133,7 +133,6 @@ export function ExportImportPage() {
         <input
           ref={inputRef}
           type="file"
-          accept=".zip,.json,application/zip,application/json"
           className="hidden"
           onChange={(e) => {
             const file = e.target.files?.[0]
