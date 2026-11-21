@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", "Impact", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --color-ink: #0b0c10;
+  --color-panel: #14161d;
+  --color-panel-2: #1a1d27;
+  --color-line: #262a38;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+  overscroll-behavior-y: none;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(99, 102, 241, 0.14), transparent 60%),
+    radial-gradient(900px 500px at -10% 0%, rgba(16, 185, 129, 0.08), transparent 60%),
+    var(--color-ink);
+  color: #e7e9f1;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input, select, textarea {
+  background: var(--color-panel-2);
+  color: inherit;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+select {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+.tap-target {
+  touch-action: manipulation;
+  user-select: none;
+}
+
+button, a, [role="button"], nav, summary {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(148 163 184 / 0.28);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184 / 0.55);
+}
+
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+@media (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+@media (hover: none) {
+  button:not(:disabled):active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.97);
+    transition: transform 0.08s;
+  }
+}
+
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55), 0 6px 22px rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0), 0 6px 26px rgba(16, 185, 129, 0.5); }
+}
+.cta-pulse {
+  animation: cta-pulse 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse { animation: none; }
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
