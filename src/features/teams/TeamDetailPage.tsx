@@ -5,10 +5,10 @@ import { db } from '../../db/db'
 import { getRoster, removePlayerFromTeam } from '../../data/players'
 import { deleteTeam } from '../../data/teams'
 import { getTeamRecord, type TeamRecord } from '../../data/stats'
-import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
 import { ConfirmDialog } from '../../components/ConfirmDialog'
+import { PlayerAvatar, TeamLogoAvatar } from '../../components/EntityAvatar'
 import { EditIcon, PlusIcon, TrashIcon } from '../../components/icons'
 import { IconButton } from '../../components/IconButton'
 import { PageHeader } from '../../components/PageHeader'
@@ -41,7 +41,7 @@ export function TeamDetailPage() {
       <PageHeader title={team.name} back="/teams" />
 
       <Card className="p-4 flex items-center gap-3 mb-3">
-        <Avatar blobId={team.logoBlobId} name={team.name} size={56} />
+        <TeamLogoAvatar team={team} size={56} />
         <div className="flex-1">
           <h2 className="text-lg font-bold">{team.name}</h2>
           {team.details && <p className="text-sm text-slate-400">{team.details}</p>}
@@ -80,7 +80,7 @@ export function TeamDetailPage() {
         {roster?.map(({ teamPlayer, player }) => (
           <Card key={teamPlayer.id} className="flex items-center gap-3 p-3">
             <Link to={`/players/${player.id}`} className="flex items-center gap-3 flex-1 min-w-0">
-              <Avatar blobId={player.imageBlobId} name={player.currentName} size={40} />
+              <PlayerAvatar player={player} size={40} />
               <div className="min-w-0">
                 <div className="font-medium flex items-center gap-1.5 flex-wrap">
                   {player.currentName}

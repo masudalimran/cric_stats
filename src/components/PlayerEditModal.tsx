@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { renamePlayer, updatePlayerDetails } from '../data/players'
 import type { Player } from '../types'
 import { Button } from './Button'
-import { ImageUpload } from './ImageUpload'
+import { IconPicker } from './IconPicker'
 import { Modal } from './Modal'
+import { PLAYER_AVATARS } from './presetIcons'
 
 interface Props {
   player: Player
@@ -16,7 +17,7 @@ export function PlayerEditModal({ player, onClose, onSaved }: Props) {
   const [details, setDetails] = useState(player.details ?? '')
   const [battingStyle, setBattingStyle] = useState(player.battingStyle ?? '')
   const [bowlingStyle, setBowlingStyle] = useState(player.bowlingStyle ?? '')
-  const [imageBlobId, setImageBlobId] = useState(player.imageBlobId)
+  const [avatarPreset, setAvatarPreset] = useState(player.avatarPreset)
   const [saving, setSaving] = useState(false)
 
   async function handleSave() {
@@ -28,7 +29,7 @@ export function PlayerEditModal({ player, onClose, onSaved }: Props) {
         details: details || undefined,
         battingStyle: battingStyle || undefined,
         bowlingStyle: bowlingStyle || undefined,
-        imageBlobId,
+        avatarPreset,
       })
       onSaved()
     } finally {
@@ -39,7 +40,13 @@ export function PlayerEditModal({ player, onClose, onSaved }: Props) {
   return (
     <Modal title="Edit player" onClose={onClose}>
       <div className="space-y-3">
-        <ImageUpload blobId={imageBlobId} name={name} onChange={setImageBlobId} />
+        <IconPicker
+          value={avatarPreset}
+          onChange={setAvatarPreset}
+          options={PLAYER_AVATARS}
+          title="Choose an avatar"
+          triggerLabel={avatarPreset ? 'Change avatar' : 'Choose avatar'}
+        />
         <div>
           <label className="text-xs text-slate-400 block mb-1">Name</label>
           <input

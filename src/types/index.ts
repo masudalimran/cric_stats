@@ -10,6 +10,8 @@ export interface Player {
   details?: string
   battingStyle?: string
   bowlingStyle?: string
+  avatarPreset?: string
+  /** @deprecated legacy uploaded photo, from before uploads were replaced with preset avatars */
   imageBlobId?: string
   createdAt: number
 }
@@ -29,6 +31,8 @@ export interface Team {
   id: string
   name: string
   details?: string
+  logoPreset?: string
+  /** @deprecated legacy uploaded logo, from before uploads were replaced with preset logos */
   logoBlobId?: string
   createdAt: number
 }

@@ -1,9 +1,9 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Link } from 'react-router-dom'
 import { db } from '../../db/db'
-import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
+import { TeamLogoAvatar } from '../../components/EntityAvatar'
 import { PlusIcon } from '../../components/icons'
 
 export function TeamsListPage() {
@@ -36,7 +36,7 @@ export function TeamsListPage() {
         {teams?.map((team) => (
           <Link key={team.id} to={`/teams/${team.id}`}>
             <Card className="flex items-center gap-3 p-3.5 hover:border-slate-500 transition-colors">
-              <Avatar blobId={team.logoBlobId} name={team.name} size={48} />
+              <TeamLogoAvatar team={team} size={48} />
               <div className="flex-1">
                 <div className="font-bold">{team.name}</div>
                 <div className="text-xs text-slate-400">{rosterCounts?.[team.id] ?? 0} players</div>

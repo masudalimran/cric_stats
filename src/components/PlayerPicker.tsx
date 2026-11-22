@@ -8,10 +8,11 @@ import {
   searchPlayersByName,
 } from '../data/players'
 import type { Player } from '../types'
-import { Avatar } from './Avatar'
 import { Button } from './Button'
-import { ImageUpload } from './ImageUpload'
+import { PlayerAvatar } from './EntityAvatar'
+import { IconPicker } from './IconPicker'
 import { Modal } from './Modal'
+import { PLAYER_AVATARS } from './presetIcons'
 import { RoleBadge } from './RoleBadge'
 
 interface Suggestion {
@@ -34,7 +35,7 @@ export function PlayerPicker({ teamId, onDone, onClose }: Props) {
   const [details, setDetails] = useState('')
   const [battingStyle, setBattingStyle] = useState('')
   const [bowlingStyle, setBowlingStyle] = useState('')
-  const [imageBlobId, setImageBlobId] = useState<string | undefined>()
+  const [avatarPreset, setAvatarPreset] = useState<string | undefined>()
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export function PlayerPicker({ teamId, onDone, onClose }: Props) {
         details: details || undefined,
         battingStyle: battingStyle || undefined,
         bowlingStyle: bowlingStyle || undefined,
-        imageBlobId,
+        avatarPreset,
       })
       onDone()
     } finally {
@@ -161,7 +162,7 @@ export function PlayerPicker({ teamId, onDone, onClose }: Props) {
                   }
                   className={`tap-target w-full flex items-center gap-3 px-3 py-2.5 text-left ${isActiveHere ? 'opacity-50 cursor-not-allowed' : 'hover:bg-panel-2'}`}
                 >
-                  <Avatar blobId={s.player.imageBlobId} name={s.player.currentName} size={32} />
+                  <PlayerAvatar player={s.player} size={32} />
                   <div className="flex-1">
                     <div className="font-medium flex items-center gap-1.5">
                       {s.player.currentName}
@@ -198,7 +199,13 @@ export function PlayerPicker({ teamId, onDone, onClose }: Props) {
 
         {showNewForm && (
           <div className="space-y-3 pt-2 border-t border-line">
-            <ImageUpload blobId={imageBlobId} name={name} onChange={setImageBlobId} />
+            <IconPicker
+              value={avatarPreset}
+              onChange={setAvatarPreset}
+              options={PLAYER_AVATARS}
+              title="Choose an avatar"
+              triggerLabel={avatarPreset ? 'Change avatar' : 'Choose avatar'}
+            />
             <input
               value={battingStyle}
               onChange={(e) => setBattingStyle(e.target.value)}

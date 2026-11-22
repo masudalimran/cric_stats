@@ -5,7 +5,7 @@ import { db } from '../../db/db'
 import { getRoster } from '../../data/players'
 import { setOpeners, startMatch } from '../../data/match'
 import { Button } from '../../components/Button'
-import { Avatar } from '../../components/Avatar'
+import { PlayerAvatar } from '../../components/EntityAvatar'
 import { PageHeader } from '../../components/PageHeader'
 import { Select } from '../../components/Select'
 
@@ -76,7 +76,7 @@ export function MatchSetupPage() {
                         checked={xi.includes(player.id)}
                         onChange={() => toggle(xi, setXi, player.id)}
                       />
-                      <Avatar blobId={player.imageBlobId} name={player.currentName} size={24} />
+                      <PlayerAvatar player={player} size={24} />
                       {player.currentName}
                     </label>
                   ))}

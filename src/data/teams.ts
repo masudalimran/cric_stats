@@ -3,15 +3,15 @@ import { deleteImage } from '../lib/image'
 import { newId } from '../lib/id'
 import type { Team } from '../types'
 
-export async function createTeam(name: string, details?: string, logoBlobId?: string): Promise<Team> {
-  const team: Team = { id: newId(), name: name.trim(), details, logoBlobId, createdAt: Date.now() }
+export async function createTeam(name: string, details?: string, logoPreset?: string): Promise<Team> {
+  const team: Team = { id: newId(), name: name.trim(), details, logoPreset, createdAt: Date.now() }
   await db.teams.add(team)
   return team
 }
 
 export async function updateTeam(
   id: string,
-  updates: Partial<Pick<Team, 'name' | 'details' | 'logoBlobId'>>,
+  updates: Partial<Pick<Team, 'name' | 'details' | 'logoPreset'>>,
 ): Promise<void> {
   await db.teams.update(id, updates)
 }

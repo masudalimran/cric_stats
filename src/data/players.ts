@@ -61,7 +61,7 @@ export interface NewPlayerInput {
   details?: string
   battingStyle?: string
   bowlingStyle?: string
-  imageBlobId?: string
+  avatarPreset?: string
 }
 
 export async function createNewPlayerOnTeam(
@@ -150,7 +150,7 @@ export async function classifyPlayerForTeam(playerId: string, currentTeamId: str
 
 export async function updatePlayerDetails(
   playerId: string,
-  updates: Partial<Pick<Player, 'details' | 'battingStyle' | 'bowlingStyle' | 'imageBlobId'>>,
+  updates: Partial<Pick<Player, 'details' | 'battingStyle' | 'bowlingStyle' | 'avatarPreset'>>,
 ): Promise<void> {
   await db.players.update(playerId, updates)
 }

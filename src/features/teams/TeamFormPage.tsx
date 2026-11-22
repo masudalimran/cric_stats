@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../../db/db'
 import { createTeam, updateTeam } from '../../data/teams'
 import { Button } from '../../components/Button'
-import { ImageUpload } from '../../components/ImageUpload'
+import { IconPicker } from '../../components/IconPicker'
 import { PageHeader } from '../../components/PageHeader'
+import { TEAM_LOGOS } from '../../components/presetIcons'
 
 export function TeamFormPage() {
   const { teamId } = useParams()
@@ -12,7 +13,7 @@ export function TeamFormPage() {
   const isEdit = !!teamId
   const [name, setName] = useState('')
   const [details, setDetails] = useState('')
-  const [logoBlobId, setLogoBlobId] = useState<string | undefined>()
+  const [logoPreset, setLogoPreset] = useState<string | undefined>()
   const [loaded, setLoaded] = useState(!isEdit)
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export function TeamFormPage() {
       if (team) {
         setName(team.name)
         setDetails(team.details ?? '')
-        setLogoBlobId(team.logoBlobId)
+        setLogoPreset(team.logoPreset)
       }
       setLoaded(true)
     })
@@ -30,10 +31,10 @@ export function TeamFormPage() {
   async function handleSubmit() {
     if (!name.trim()) return
     if (isEdit && teamId) {
-      await updateTeam(teamId, { name: name.trim(), details: details || undefined, logoBlobId })
+      await updateTeam(teamId, { name: name.trim(), details: details || undefined, logoPreset })
       navigate(`/teams/${teamId}`)
     } else {
-      const team = await createTeam(name, details || undefined, logoBlobId)
+      const team = await createTeam(name, details || undefined, logoPreset)
       navigate(`/teams/${team.id}`)
     }
   }
@@ -43,7 +44,13 @@ export function TeamFormPage() {
   return (
     <div className="p-4 max-w-md mx-auto space-y-4">
       <PageHeader title={isEdit ? 'Edit team' : 'New team'} />
-      <ImageUpload blobId={logoBlobId} name={name || 'Team'} onChange={setLogoBlobId} />
+      <IconPicker
+        value={logoPreset}
+        onChange={setLogoPreset}
+        options={TEAM_LOGOS}
+        title="Choose a team logo"
+        triggerLabel={logoPreset ? 'Change logo' : 'Choose logo'}
+      />
       <input
         autoFocus
         value={name}

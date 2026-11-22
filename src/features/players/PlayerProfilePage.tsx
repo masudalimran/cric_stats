@@ -12,7 +12,7 @@ import {
   type PlayerCareerStats,
 } from '../../data/stats'
 import type { DismissalCount } from '../../stats/aggregate'
-import { Avatar } from '../../components/Avatar'
+import { PlayerAvatar } from '../../components/EntityAvatar'
 import { Card } from '../../components/Card'
 import { PageHeader } from '../../components/PageHeader'
 import { RoleBadge } from '../../components/RoleBadge'
@@ -46,7 +46,7 @@ export function PlayerProfilePage() {
       <PageHeader title={player.currentName} subtitle={currentTeams.map((t) => t.teamName).join(', ') || 'No current team'} />
 
       <div className="flex items-center gap-4">
-        <Avatar blobId={player.imageBlobId} name={player.currentName} size={72} />
+        <PlayerAvatar player={player} size={72} />
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-xl font-bold">{player.currentName}</h2>
