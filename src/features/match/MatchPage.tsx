@@ -317,7 +317,7 @@ export function MatchPage() {
           <>
             <div className="grid grid-cols-3 gap-2">
               {[0, 1, 2, 3, 4, 6].map((n) => {
-                const zeroDisabledForExtra = n === 0 && armedExtra && armedExtra !== 'noball'
+                const zeroDisabledForExtra = n === 0 && armedExtra && armedExtra !== 'noball' && armedExtra !== 'wide'
                 return (
                   <button
                     key={n}

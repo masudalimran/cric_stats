@@ -61,12 +61,28 @@ export function MatchSetupPage() {
 
       {step === 1 && (
         <>
-          <h2 className="font-semibold text-slate-300">Playing XI</h2>
+          <h2 className="font-semibold text-slate-300">Squad</h2>
+          <p className="text-xs text-slate-500 -mt-1">
+            Everyone's selected by default — uncheck anyone who isn't available for this match.
+          </p>
           {[{ team: teamA, roster: rosterA, xi: xiA, setXi: setXiA }, { team: teamB, roster: rosterB, xi: xiB, setXi: setXiB }].map(
             ({ team, roster, xi, setXi }) => (
               <div key={team.id} className="mb-3">
-                <div className="text-sm text-slate-400 mb-1">
-                  {team.name} ({xi.length} selected)
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm text-slate-400">
+                    {team.name} ({xi.length} selected)
+                  </span>
+                  <div className="flex gap-2 text-xs">
+                    <button
+                      onClick={() => setXi(roster.map((r) => r.player.id))}
+                      className="text-emerald-400 hover:text-emerald-300"
+                    >
+                      Select all
+                    </button>
+                    <button onClick={() => setXi([])} className="text-slate-400 hover:text-slate-300">
+                      Select none
+                    </button>
+                  </div>
                 </div>
                 <div className="space-y-1 max-h-48 overflow-y-auto border border-line rounded-lg p-2">
                   {roster.map(({ player }) => (
