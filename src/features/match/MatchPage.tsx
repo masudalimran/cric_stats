@@ -186,7 +186,7 @@ export function MatchPage() {
         bowlerId,
         runsOffBat: extraType === 'noball' ? runs : 0,
         extraType,
-        extraRuns: extraType === 'noball' ? 1 : runs,
+        extraRuns: extraType === 'noball' ? 1 : extraType === 'wide' ? 1 + runs : runs,
         isWicket: false,
         wicketType: null,
       }),
